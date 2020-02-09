@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+class Substitution
+{
+	public static void main(String[] args)
+	{
+		Scanner sc = new Scanner(System.in);
+		String PT,cipher;
+	
+		System.out.print("Enter Plain text: ");	
+		PT = sc.nextLine();
+
+		System.out.print("Encryption: ");
+		cipher=convert(PT);		
+		System.out.println(cipher);
+		
+		System.out.print("Decryption: ");			
+		cipher=convert(cipher);		
+		System.out.println(cipher);
+	}
+
+	public static String convert(String PT)
+	{
+		int ascii=0;
+		String tamperedText="";
+		for(int i=0;i<PT.length();i++)
+		{
+			int val = (int) PT.charAt(i);
+			if(val<=90)
+				ascii = 90 -(val -65);
+			else if(val>=97)
+				ascii = 122 - (val - 97);
+			
+			tamperedText+=(char)ascii;
+		}		
+		return tamperedText;
+	}
+
+
+}

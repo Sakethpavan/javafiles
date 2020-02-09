@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+class Caeser
+{
+	public static void main(String[] arg)
+	{
+		Scanner sc = new Scanner(System.in);
+		String PT,cipher="",decrypt="";
+		int key;
+		int asci;
+		
+		System.out.print("Plain Text :");
+		PT = sc.nextLine();
+		System.out.print("key : ");
+		key = sc.nextInt();
+		
+		for(int i=0;i<PT.length();i++)
+		{
+			int val = PT.charAt(i);
+			asci = val + key%26;
+			
+			if(asci>90 && val<=90)
+			{
+				asci=65 +(asci - 91);
+			}
+			else if(asci>122 && val<=122)
+			{
+				asci= 97 +(asci -123);
+			}
+			
+			cipher+=(char)asci;
+		}
+		
+		System.out.println("cipher      " + cipher);
+		
+		for(int i=0;i<cipher.length();i++)
+		{
+			int val = cipher.charAt(i);
+			asci = val - key%26;
+			if(asci<65 && val<=90)
+			{
+				asci=91 -(65-asci);
+			}
+			else if(asci<97 && val<=122 && val>=97)
+			{
+				asci= 123 -(97-asci);
+			}
+			
+			decrypt+=(char)asci;
+		}
+		System.out.println("decrypt     " + decrypt);
+	
+	}
+
+}
