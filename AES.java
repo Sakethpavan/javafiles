@@ -23,7 +23,7 @@ public class AES {
 		cipher.init(Cipher.DECRYPT_MODE,skeySpec);
 		byte[] original = cipher.doFinal(encrypted);
 		String originalString = new String(original);
-		System.out.println("Original String " + originalString +" "+ asHex(original));
+		System.out.println("Original String " + originalString );
 
 	}
 	
