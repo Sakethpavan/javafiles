@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<title> Diffie Hellmann</title>
+	</head>
+	
+	<body>
+		Enter Prime Number (p) <input type="number" id='p'/> <br>
+		Enter primitive root of p (g) <input type="number" id="g"/> <br>
+		Choose 1st secret no(a)(alice) <input type="number" id ='a' /> <br>
+		Choose 2nd secret no(b)(bob) <input type="number" id= "b"/> <br>
+		
+		<button onclick="tester()">run </button> 
+		<script>
+			function tester(){
+				var p = document.getElementById("p").value;
+				var g = document.getElementById("g").value;
+				var a = document.getElementById("a").value;
+				var b= document.getElementById("b").value;
+				var A = Math.pow(g,a)%p;
+				var B = Math.pow(g,b)%p;
+				var S_A = Math.pow(B,a)%p;
+				var S_B = Math.pow(A,b)%p;
+				
+				if(S_A==S_B)
+				{
+					alert("alice and bob can communicate. \n"+"secret key:" +S_A);
+				}
+				else
+				{
+					alert("Alice and bob cannot communicate");
+				}
+			}
+		</script>
+	</body>
+</html>
