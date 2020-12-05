@@ -1,26 +1,40 @@
+//Input to be taken = Hello World
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.security.Key;
+import java.util.Base64;
 import javax.crypto.Cipher;
+import javax.crypto.CipherOutputStream;
 import javax.crypto.KeyGenerator;
-import javax.swing.JOptionPane;
 
-public class BlowFishExp6 {
 
-	public static void main(String[] args) throws Exception {
-
-        	KeyGenerator keygenerator = KeyGenerator.getInstance("Blowfish");
-        	Cipher cipher = Cipher.getInstance("Blowfish");
-        	Key secretkey = keygenerator.generateKey();
-        	cipher.init(Cipher.ENCRYPT_MODE, secretkey);
-    
-        	String inputText = JOptionPane.showInputDialog("Input your message:");
-        	byte[] encrypted = cipher.doFinal(inputText.getBytes());
-        	cipher.init(Cipher.DECRYPT_MODE, secretkey);
-        	byte[] decrypted = cipher.doFinal(encrypted);
-        
-        	JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
-                			      "\nEncrypted text: " + new String(encrypted) + "\n" +"\nDecrypted text: " + new String(decrypted));
-                                     
-        	System.exit(0);
+public class BlowFish
+{	
+	public static void main(String[] arg) throws Exception
+	{
+		KeyGenerator keygenerator = KeyGenerator.getInstance("Blowfish");
+		keygenerator.init(128);
+		Key secretKey = keygenerator.generateKey();
+		Cipher cipherOut = Cipher.getInstance("Blowfish/CFB/NoPadding");
+		cipherOut.init(Cipher.ENCRYPT_MODE,secretKey);
+		Base64.Encoder encoder = Base64.getEncoder();
+		
+		byte iv[] = cipherOut.getIV();
+		if(iv!=null)
+		{
+			System.out.println("Initialization vector of the cipher:" + encoder.encodeToString(iv));
+		}
+		FileInputStream Fin = new FileInputStream("inputFile.txt");
+		FileOutputStream Fout = new FileOutputStream("outputFile.txt");
+		CipherOutputStream cout = new CipherOutputStream(Fout,cipherOut);
+		
+		int input;
+		while( (input=Fin.read())!=-1 )
+		{
+			cout.write(input);
+		}
+		
+		Fin.close();
+		cout.close();
 	}
-
 }
